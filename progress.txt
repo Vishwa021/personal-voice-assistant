@@ -1,0 +1,21 @@
+voice assistant --> setting notification, checking wheather, checking news through voice assistant
+progress --> voice recognition complete and text to speech is also complete, setting notification checked , checking wheather system complete, checking news system complete, integrating all in progress..
+
+Integration configuaration:
+ check key words :
+  1.reminder : [reminder]
+   1.1 : Set reminder
+    1.1.1 : Ask reminder
+    1.1.2 : set time (how will you fetch ? its integer) 
+  2.weather : [weather]
+   2.1 : weather components
+    2.1.1 : temperature :[temperature] #
+    2.1.2 : humidity : [humidity] # condition based check if any word detected from this three component than neglect comprehensive detail else comprehensive detail
+    2.1.3 : wind : [wind] #
+    2.1.4 : comprehensive detail : [weather]
+  3.news : [news]		
+   3.1 : tell top three news details of specific news
+  4. Same page integration   
+conditions : google voice recognisation has limit 60 minutes per month and only 60 sec audio will be proccessed.
+
+*Create function for voice to text - pending
