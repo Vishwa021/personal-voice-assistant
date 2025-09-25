@@ -7,6 +7,8 @@ import pyttsx3
 import speech_recognition as sr
 import reminder
 import news
+import weather
+
 
 r = sr.Recognizer()
 r.pause_threshold = 1.2 
@@ -42,40 +44,60 @@ def speak_to_text():
            return ""
 
 
+try : 
+    while True : 
 
-while True : 
+        command = speak_to_text()
 
-    command = speak_to_text()
+        print(command)
 
-    print(command)
+        if "reminder" in command or "set" in command : 
+            #Ask reminder
+            text_to_speak("Provide me reminder ?")
+            reminder_V = speak_to_text() # reminder in text
+            print(reminder_V)
+            text_to_speak("how much time")
+            var = speak_to_text()
+            match = re.search(r'\d+', var)
+            print(match)
+            if match:
+                number = int(match.group()) # time
+                reminder.set_reminder(reminder_V, number)
+            else:
+                print("Something went wrong, Try again !")
 
-    if "reminder" in command or "set" in command : 
-        #Ask reminder
-        text_to_speak("Provide me reminder ?")
-        reminder_V = speak_to_text() # reminder in text
-        print(reminder_V)
-        text_to_speak("how much time")
-        var = speak_to_text()
-        match = re.search(r'\d+', var)
-        print(match)
-        if match:
-            number = int(match.group()) # time
-        else:
-            print("Something went wrong, Try again !")
 
 
-        reminder.reminder(reminder_V, number)
+        elif "news" in command :
+            while True : 
+                print("What news do you want to know")
+                voice = speak_to_text()
 
-    elif "news" in command :
-        print("What news do you want to know")
-        while True : 
-            voice = speak_to_text()
+                if voice and voice.split()[0] == "no":
+                    print("Sure !")
+                    break
+                else :
+                    Enews = news.news(voice)
+                    print(Enews)
+                    print("Do you like to hear more news ? if yes than tell directly else tell no !")
 
-            if voice and voice.split()[0] == "no":
-                print("Sure !")
-                break
-            else :
-                Enews = news.news(voice)
-                print(Enews)
-                print("Do you like to hear more news ? tell yes or no only !")
+        elif "weather" in command :
+            while True : 
+                print("Which location ? specify only location name")
+                location = speak_to_text()
 
+                if len(location.split()) == 2 or len(location.split()) == 1 :
+                    weather_condition = weather.weather(location)
+                    print(weather_condition)
+                    print("Do you like to check more location than tell only location name else say no !")
+                elif location and location.split()[0] == "no" :
+                    print("Sure !")
+                    break
+                else : 
+                    print("Input is not processable, Try again !")
+        elif command and command.split()[0] == "no" :
+            print("See you again !")
+            break
+except KeyboardInterrupt as e :
+    print("Thank you for using this service see you soon !")
+              

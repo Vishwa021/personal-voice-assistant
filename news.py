@@ -19,4 +19,6 @@ def news(search_news) -> str :
     return news_results1
   except KeyError as e :
     return "Result does not found !"
+  
+
 

@@ -1,16 +1,15 @@
-# setting reminders, checking the weather, and reading the news.
+import threading, time
 from plyer import notification
-import time
 
-#how to set reminder 
-def reminder(rem, t):
-    time.sleep(t)  # wait 5 seconds
-    notification.notify(
-        title="Reminder",
-        message= rem,
-        timeout= 5 # notification stays for 5 seconds
-    )
-
+def set_reminder(message, delay):
+        def notify():
+            time.sleep(delay)
+            notification.notify(
+                title="Reminder",
+                message=message,
+                timeout=5
+            )
+        threading.Thread(target=notify, daemon=True).start()
 
     
 
